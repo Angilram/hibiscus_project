@@ -3,7 +3,8 @@ import sys
 import csv
 import fasta_reader
 import kmer_script
-import gene_gff
+import gene_sonic
+import length
 
 #define function for a single 
 def synteny(genomes, K, score):
@@ -22,23 +23,31 @@ def synteny(genomes, K, score):
     for each in genomes:
         scaffold = each[0]
         reads = each[1]
-        genemap = gene_gff.gene(reads, K, score, scaffold)
+        genemap = gene_sonic.gene(reads, K, score, scaffold)
         #print(genemap)
         
         #map transcript names to locus start
         synDict = {}
         for lines in genemap:
+            #matching bases in reverse to normal contigs
+            if '_r' in lines[0]: 
+                temp=lines[0].split("contig_r")
+                temp=temp[0]
+                length = length.length(scaffold,temp)
+                lines[3] = length - int(lines[3])
+                lines[4] = length - int(lines[4])
             #print(lines)
             lines = lines.split('\t')
-            synDict[lines[1]]=lines[3]
+            synDict[lines[3]]=lines[1]
             
-        #gene function already sorts by locus start (within a contig)
-        #print(synDict)
+        #need to sort genes
+        synDict_items = synDict.items()
+        sorted_items = sorted(synDict.items)
     
 #write values to file
-        line = list(synDict.keys())
+        line = list(sorted_items())
         #print(line)
-        stringline = ','.join(line)
+        stringline = '\t'.join(line)
         #print(stringline)
         synmap += [stringline]
         

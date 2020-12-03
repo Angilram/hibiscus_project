@@ -5,6 +5,7 @@ def complement(sequence):
     flipped = []
     
     for base in sequence:
+        baze = 'N'
         if base == 'A':
             baze = 'T'
         if base == 'T':
@@ -19,7 +20,7 @@ def complement(sequence):
     
     flipped = ''.join(flipped)
     
-    print(flipped)
+    #print(flipped)
     return(flipped)
 
 if __name__ == '__main__':

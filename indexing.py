@@ -19,6 +19,7 @@ def index(file):
     indices += [lino]    
 #we now have a record of where every sequence starts and stops  
     del(OpenedFile)
+    print(indices)
     return(indices)
 
 if __name__ == '__main__':

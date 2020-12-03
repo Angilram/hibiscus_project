@@ -23,7 +23,6 @@ def gene(reads, k, score, scaffold):
     #print(kmerDict)
     
 #set up mapping list(s)
-    #maps = []
     genemap = []
     
 #take each key's values
@@ -162,6 +161,7 @@ def gene(reads, k, score, scaffold):
                         seqs += [ATCG]
                         boo += [sum(boolean)]
                         bootlace += [str(sum(boolean))]
+
 #write bases and seq for best match scores for given kmer
             if len(boo) != 0:
                 for match in range(0,len(start)):
@@ -170,11 +170,12 @@ def gene(reads, k, score, scaffold):
                         if kmer == (kmerDict[key])[0]: #basically, if this is the start
                             gene_start = start[match]
                             boo_start = boo[match]
-                        if kmer == (kmerDict[key])[len(kmerDict[key])-1]: #basically, if this this is the end
-                            gene_end = end[match]
-                            gene_seqname = seqname[match]
-                            gene_source = source[match]
-                            avboo = str((boo[match]+boo_start)/2)
+                        if len(boo_start) != 0:                    
+                            if kmer == (kmerDict[key])[len(kmerDict[key])-1]: #basically, if this this is the end
+                                gene_end = end[match]
+                                gene_seqname = seqname[match]
+                                gene_source = source[match]
+                                avboo = str((boo[match]+boo_start)/2)
         
 #write line describing gene
         if len(boo) != 0:
