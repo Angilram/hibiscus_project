@@ -8,8 +8,9 @@ import reverse
 import complement
 import datetime
 
-def matchmake(kmerDict, k, scaffold, indices, thingy):
+def matchmake(kmerDict, k, score, scaffold, indices, thingy):
     #print(thingy)
+    score = score
     scaffold = scaffold
     indices = indices
     thingy = indices.index(thingy)
@@ -49,14 +50,22 @@ def matchmake(kmerDict, k, scaffold, indices, thingy):
                 for key in kmerDict:
                     #print(key)
             #calculate match score
+                    boolean = []
                     ATCG = (each)[base:(base+k)]
                     #print(ATCG)
                     #print(key)
 
-                    if key == ATCG:
+                    for char in range(0,len(ATCG)):
+                        comp = [key[char]==ATCG[char]]
+                        boolean += comp
+                        #print(boolean)
+                        #print(key)
+                    #print(sum(boolean))    
 
+                    if sum(boolean)>score:
+                        #print(sum(boolean))
                         seqname = str(entry[0]+name)
-                            
+
                         ambigs = len(kmerDict[key])
                         #print(ambigs)
                         for item in range(0,ambigs):
@@ -65,13 +74,20 @@ def matchmake(kmerDict, k, scaffold, indices, thingy):
                         start = base+1
                         end = base+k
                         seqs = ATCG
-                        boo = k
+                        boo = sum(boolean)
+                        #print(boo)
                         #print(key)
 
-            #store best scores for each kmer
+#store best scores for each kmer
+                    #is this better than the previous score?
                         if key in scoreDict:
                         #print(scoreDict[key])
-                            scoreDict[key] = [[seqname,(scoreDict[key])[0]],[source,(scoreDict[key])[1]],[start,(scoreDict[key])[2]],[end,(scoreDict[key])[3]],[boo,(scoreDict[key])[4]]]   
+                            if ((scoreDict[key])[4])<boo:
+                                scoreDict[key] = [seqname,source,start,end,boo]
+                        #is this the same as the previous best?        
+                            if ((scoreDict[key])[4])==boo:
+                                scoreDict[key] = [[seqname,(scoreDict[key])[0]],[source,(scoreDict[key])[1]],[start,(scoreDict[key])[2]],[end,(scoreDict[key])[3]],[boo,(scoreDict[key])[4]]]   
+                        #if not, do nothing
                         #if key doesn't exist yet, put it in the dictionary                     
                         else:
                             #print(key)

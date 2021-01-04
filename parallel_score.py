@@ -19,7 +19,7 @@ class nsp:
         self.terminus = terminus
 
 #define mapping function
-def gene(reads, k, scaffold):
+def gene(reads, k, score, scaffold):
 
 #establish dictionary of kmer transcripts
     reads = fasta_reader.readfa(reads)
@@ -59,7 +59,7 @@ def gene(reads, k, scaffold):
     print('here we go')
 
 # Step 2: `pool.apply` the matching function
-    scoreList = [pool.apply(match.matchmake, args=(kmerDict, k, scaffold, indices, thingy)) for thingy in thingies]
+    scoreList = [pool.apply(score.matchmake, args=(kmerDict, k, score, scaffold, indices, thingy)) for thingy in thingies]
 
 # Step 3: Don't forget to close
     pool.close()
@@ -78,7 +78,7 @@ def gene(reads, k, scaffold):
     for key in scoreDict:
         #pull source
         source = (scoreDict[key])[1]
-    #    print(source)
+        #print(source)
         if source in geneDict:
             (geneDict[source])[1] = [(geneDict[source])[1],(scoreDict[key])[2]]
             (geneDict[source])[2] = [(geneDict[source])[2],(scoreDict[key])[3]]
@@ -138,4 +138,4 @@ def gene(reads, k, scaffold):
 
 #allow parsing from command line
 if __name__ == '__main__':
-    gene(sys.argv[1], int(sys.argv[2]), sys.argv[3])
+    gene(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
