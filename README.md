@@ -1,5 +1,3 @@
-#MSc research on transcriptional regulation of development across Hibiscus species
-
 Investigating the impact of speciation on genome organisation and gene expression using Hibiscus and Cotton species:
 
 This project used genome data generated using 10x Chromium technology and RNAseq data corresponding to early stages of petal development.
