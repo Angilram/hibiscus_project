@@ -1,4 +1,4 @@
-##MSc research on transcriptional regulation of development across Hibiscus species
+#MSc research on transcriptional regulation of development across Hibiscus species
 
 Investigating the impact of speciation on genome organisation and gene expression using Hibiscus and Cotton species:
 
